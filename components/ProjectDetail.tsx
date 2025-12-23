@@ -62,7 +62,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, onNaviga
             <MetadataItem label="SERVICES" values={project.services} />
             <MetadataItem label="AWARDS" values={project.awards} />
             {project.results && project.results.map((res, i) => (
-              // Fixed: Ensure MetadataItem is treated as a React component by correctly typing its props
               <MetadataItem key={i} label={res.label} value={res.value} />
             ))}
           </div>
@@ -129,7 +128,6 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, onNaviga
   );
 };
 
-// Fixed: Explicitly typed MetadataItem to handle list rendering and key props
 interface MetadataItemProps {
   label: string;
   value?: string;
@@ -146,7 +144,6 @@ const MetadataItem: React.FC<MetadataItemProps> = ({ label, value, values }) => 
   </div>
 );
 
-// Fixed: Explicitly typed ProjectNavLink for better type safety
 interface ProjectNavLinkProps {
   direction: string;
   title: string;
@@ -162,7 +159,7 @@ const ProjectNavLink: React.FC<ProjectNavLinkProps> = ({ direction, title, onCli
     <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest mb-4 group-hover:text-white transition-colors">
       {direction} PROJECT
     </span>
-    <span className="text-3xl md:text-6xl font-bold tracking-tighter group-hover:italic transition-all">
+    <span className="text-3xl md:text-6xl font-bold tracking-tighter group-hover:italic transition-all uppercase">
       {title}
     </span>
   </button>

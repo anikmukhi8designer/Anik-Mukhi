@@ -2,22 +2,23 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Project } from '../types';
-import { EASING, PROJECTS } from '../constants';
+import { EASING } from '../constants';
 
 interface ProjectDetailProps {
   project: Project;
+  allProjects: Project[];
   onBack: () => void;
   onNavigate: (id: string) => void;
 }
 
-const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, onNavigate }) => {
+const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onBack, onNavigate }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [project.id]);
 
-  const currentIndex = PROJECTS.findIndex(p => p.id === project.id);
-  const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
-  const prevProject = PROJECTS[(currentIndex - 1 + PROJECTS.length) % PROJECTS.length];
+  const currentIndex = allProjects.findIndex(p => p.id === project.id);
+  const nextProject = allProjects[(currentIndex + 1) % allProjects.length];
+  const prevProject = allProjects[(currentIndex - 1 + allProjects.length) % allProjects.length];
 
   return (
     <motion.div

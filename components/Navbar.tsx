@@ -1,9 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CONTENT, EASING, SITE_INFO } from '../constants';
+import { EASING } from '../constants';
+import { NavLink } from '../types';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  siteInfo: any;
+  navigation: NavLink[];
+}
+
+const Navbar: React.FC<NavbarProps> = ({ siteInfo, navigation }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -22,7 +28,7 @@ const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const lastName = SITE_INFO.name.split(' ').pop();
+  const lastName = siteInfo.name.split(' ').pop();
 
   return (
     <AnimatePresence>
@@ -37,7 +43,7 @@ const Navbar: React.FC = () => {
           <a href="#" className="font-bold text-xl tracking-tighter uppercase">{lastName}.</a>
           
           <div className="flex gap-8 md:gap-12">
-            {CONTENT.navigation.map((link) => (
+            {navigation.map((link) => (
               <a
                 key={link.label}
                 href={link.href}

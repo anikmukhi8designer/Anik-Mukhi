@@ -1,10 +1,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { EASING, SITE_INFO } from '../constants';
+import { EASING } from '../constants';
 
-const Hero: React.FC = () => {
-  const nameParts = SITE_INFO.name.split(' ');
+interface HeroProps {
+  siteInfo: any;
+}
+
+const Hero: React.FC<HeroProps> = ({ siteInfo }) => {
+  const nameParts = siteInfo.name.split(' ');
   const line1 = nameParts[0];
   const line2 = nameParts.slice(1).join(' ');
   
@@ -51,10 +55,10 @@ const Hero: React.FC = () => {
             className="md:col-span-4"
           >
             <p className="font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] text-neutral-500 mb-4">
-              [ BASED IN {SITE_INFO.location} ]
+              [ BASED IN {siteInfo.location} ]
             </p>
             <p className="text-lg md:text-xl max-w-sm text-neutral-300">
-              {SITE_INFO.tagline}
+              {siteInfo.tagline}
             </p>
           </motion.div>
           

@@ -8,12 +8,28 @@ import ProjectCard from './components/ProjectCard';
 import ProjectDetail from './components/ProjectDetail';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
-import { CONTENT, EASING } from './constants';
+import { EASING } from './constants';
 
 const App: React.FC = () => {
+  const [content, setContent] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Dynamically fetch the single source of truth
+    fetch("./content/content.json")
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to load content.json");
+        return res.json();
+      })
+      .then(data => {
+        setContent(data);
+      })
+      .catch(err => {
+        console.error("Critical error loading site content:", err);
+      });
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,7 +43,9 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const selectedProject = CONTENT.projects.find(p => p.id === selectedProjectId);
+  if (!content) return <Preloader onComplete={() => {}} />;
+
+  const selectedProject = content.projects.find((p: any) => p.id === selectedProjectId);
 
   const handleProjectClick = (id: string) => {
     setSelectedProjectId(id);
@@ -53,7 +71,7 @@ const App: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Navbar />
+              <Navbar siteInfo={content.site_info} navigation={content.navigation} />
               
               <div className="fixed top-0 left-0 w-full h-[2px] z-[60] pointer-events-none">
                 <div 
@@ -62,7 +80,7 @@ const App: React.FC = () => {
                 />
               </div>
               
-              <Hero />
+              <Hero siteInfo={content.site_info} />
 
               {/* Work Section */}
               <section id="work" className="px-6 md:px-12 py-32 md:py-64 max-w-7xl mx-auto">
@@ -74,7 +92,7 @@ const App: React.FC = () => {
                 </div>
 
                 <div className="flex flex-col">
-                  {CONTENT.projects.map((project, idx) => (
+                  {content.projects.map((project: any, idx: number) => (
                     <ProjectCard key={project.id} project={project} index={idx} onClick={handleProjectClick} />
                   ))}
                 </div>
@@ -84,19 +102,19 @@ const App: React.FC = () => {
               <section id="about" className="px-6 md:px-12 py-32 md:py-64 border-t border-neutral-900 overflow-hidden">
                 <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
                   <div className="md:col-span-8">
-                    <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-8 block">{CONTENT.about.label}</span>
+                    <span className="font-mono text-xs uppercase tracking-widest text-neutral-500 mb-8 block">{content.about.label}</span>
                     <h3 
                       className="text-3xl md:text-6xl font-light leading-[1.2] tracking-tight"
-                      dangerouslySetInnerHTML={{ __html: CONTENT.about.main_copy }}
+                      dangerouslySetInnerHTML={{ __html: content.about.main_copy }}
                     />
                   </div>
                   
                   <div className="md:col-span-4 flex flex-col justify-end">
                     <p className="text-neutral-500 text-lg leading-relaxed mb-8">
-                      {CONTENT.about.sub_copy}
+                      {content.about.sub_copy}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                       {CONTENT.about.skills.map(tag => (
+                       {content.about.skills.map((tag: string) => (
                          <span key={tag} className="px-3 py-1 border border-neutral-800 rounded-full text-[10px] font-mono uppercase tracking-widest text-neutral-400">
                            {tag}
                          </span>
@@ -115,7 +133,7 @@ const App: React.FC = () => {
                   </div>
 
                   <div className="flex flex-col">
-                    {CONTENT.experience.map((exp, idx) => (
+                    {content.experience.map((exp: any, idx: number) => (
                       <motion.div 
                         key={exp.id}
                         initial={{ opacity: 0, y: 40 }}
@@ -142,13 +160,14 @@ const App: React.FC = () => {
                 </div>
               </section>
 
-              <Footer />
+              <Footer footer={content.footer} siteInfo={content.site_info} navigation={content.navigation} />
             </motion.div>
           ) : (
             selectedProject && (
               <ProjectDetail 
                 key="detail" 
-                project={selectedProject as any} 
+                project={selectedProject} 
+                allProjects={content.projects}
                 onBack={handleBack} 
                 onNavigate={handleProjectClick}
               />

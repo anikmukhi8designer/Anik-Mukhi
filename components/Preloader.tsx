@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { EASING } from '../constants';
 
 interface PreloaderProps {
@@ -24,7 +24,8 @@ const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     return () => clearTimeout(timer);
   }, [onComplete]);
 
-  const letterVariants = {
+  // Explicitly typing as Variants to fix easing type inference error (preventing 'easeInOut' from widening to generic string)
+  const letterVariants: Variants = {
     initial: { y: 100, opacity: 0 },
     animate: (i: number) => ({
       y: 0,

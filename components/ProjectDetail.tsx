@@ -26,9 +26,13 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
       <div className="max-w-7xl mx-auto">
         <button 
           onClick={onBack}
-          className="group mb-12 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-neutral-500 hover:text-white transition-colors"
+          className="group mb-12 flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-neutral-500 hover:text-white transition-colors duration-500"
         >
-          <span className="group-hover:-translate-x-1 transition-transform">←</span> BACK
+          <div className="relative overflow-hidden w-4 h-4">
+             <span className="absolute inset-0 flex items-center justify-center transition-transform duration-500 group-hover:-translate-x-full">←</span>
+             <span className="absolute inset-0 flex items-center justify-center translate-x-full transition-transform duration-500 group-hover:translate-x-0">←</span>
+          </div>
+          BACK TO INDEX
         </button>
 
         <header className="mb-24 md:mb-48">
@@ -57,14 +61,15 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
             <MetadataItem label="SERVICES" values={project.services} />
             <MetadataItem label="AWARDS" values={project.awards} />
           </div>
-          <div className="md:col-span-4 flex justify-end">
+          <div className="md:col-span-4 flex justify-end items-start">
             {project.externalLink && (
               <a 
                 href={project.externalLink} 
                 target="_blank" 
-                className="px-8 py-4 bg-white text-black rounded-full font-mono text-xs uppercase tracking-widest hover:bg-neutral-200 transition-colors"
+                className="group relative overflow-hidden px-10 py-5 bg-white text-black rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
               >
-                Launch Site
+                <div className="absolute inset-0 bg-neutral-900 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                <span className="relative z-10 group-hover:text-white transition-colors duration-500">Launch Project</span>
               </a>
             )}
           </div>
@@ -89,15 +94,29 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
 
                {block.type === 'image' && block.images && (
                  <div className="flex flex-col gap-4">
-                    <img src={block.images[0]} className="w-full h-auto object-cover rounded-sm" />
-                    {block.caption && <span className="font-mono text-[10px] text-neutral-600 uppercase">{block.caption}</span>}
+                    <div className="overflow-hidden rounded-sm">
+                      <motion.img 
+                        whileHover={{ scale: 1.02 }}
+                        transition={{ duration: 1.5, ease: EASING }}
+                        src={block.images[0]} 
+                        className="w-full h-auto object-cover" 
+                      />
+                    </div>
+                    {block.caption && <span className="font-mono text-[10px] text-neutral-600 uppercase tracking-widest">{block.caption}</span>}
                  </div>
                )}
 
                {block.type === 'gallery' && block.images && (
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {block.images.map((img, idx) => (
-                      <img key={idx} src={img} className="w-full aspect-[4/5] object-cover rounded-sm" />
+                      <div key={idx} className="overflow-hidden rounded-sm">
+                        <motion.img 
+                          whileHover={{ scale: 1.03 }}
+                          transition={{ duration: 1.5, ease: EASING }}
+                          src={img} 
+                          className="w-full aspect-[4/5] object-cover" 
+                        />
+                      </div>
                     ))}
                  </div>
                )}
@@ -110,10 +129,10 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
 };
 
 const MetadataItem = ({ label, value, values }: any) => (
-  <div className="flex flex-col gap-2">
-    <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest">{label}</span>
-    {value && <span className="text-base font-medium uppercase">{value}</span>}
-    {values?.map((v: string) => <span key={v} className="text-base font-medium uppercase">{v}</span>)}
+  <div className="flex flex-col gap-2 group cursor-default">
+    <span className="font-mono text-[10px] text-neutral-500 uppercase tracking-widest group-hover:text-neutral-400 transition-colors">{label}</span>
+    {value && <span className="text-base font-medium uppercase group-hover:text-white transition-colors">{value}</span>}
+    {values?.map((v: string) => <span key={v} className="text-base font-medium uppercase group-hover:text-white transition-colors">{v}</span>)}
   </div>
 );
 

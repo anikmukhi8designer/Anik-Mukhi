@@ -47,7 +47,14 @@ const Navbar: React.FC<NavbarProps> = ({ siteInfo, navigation, onViewChange }) =
           transition={{ duration: 0.6, ease: EASING }}
           className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center mix-blend-difference"
         >
-          <button onClick={() => onViewChange('home')} className="font-bold text-xl tracking-tighter uppercase">{lastName}.</button>
+          <motion.button 
+            onClick={() => onViewChange('home')} 
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.4, ease: EASING }}
+            className="font-bold text-xl tracking-tighter uppercase"
+          >
+            {lastName}.
+          </motion.button>
           
           <div className="flex gap-8 md:gap-12">
             {navigation.map((link) => (
@@ -55,10 +62,13 @@ const Navbar: React.FC<NavbarProps> = ({ siteInfo, navigation, onViewChange }) =
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link)}
-                className="group relative font-mono text-[10px] uppercase tracking-widest overflow-hidden py-1"
+                className="group relative font-mono text-[10px] uppercase tracking-widest overflow-hidden h-6"
               >
-                <span>{link.label}</span>
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                <div className="relative flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2">
+                  <span className="py-1">{link.label}</span>
+                  <span className="py-1 text-neutral-400">{link.label}</span>
+                </div>
+                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
               </a>
             ))}
           </div>

@@ -37,17 +37,17 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
 
         <header className="mb-24 md:mb-48">
           <motion.h1 
-            initial={{ y: 60, opacity: 0 }}
+            initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.2, ease: EASING }}
+            transition={{ duration: 0.8, ease: EASING }}
             className="text-[12vw] md:text-[8vw] font-bold tracking-tighter leading-[0.9] mb-8 uppercase"
           >
             {project.title}
           </motion.h1>
           <motion.p 
-            initial={{ y: 20, opacity: 0 }}
+            initial={{ y: 40, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.2, ease: EASING, delay: 0.2 }}
+            transition={{ duration: 0.8, ease: EASING, delay: 0.2 }}
             className="text-2xl md:text-4xl text-neutral-400 font-light max-w-4xl"
           >
             {project.tagline || project.description}
@@ -55,7 +55,12 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
         </header>
 
         {/* Metadata Section */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 border-t border-neutral-900 pt-12 mb-32">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: EASING }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-12 border-t border-neutral-900 pt-12 mb-16"
+        >
           <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <MetadataItem label="YEAR" value={project.year} />
             <MetadataItem label="SERVICES" values={project.services} />
@@ -66,24 +71,46 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
               <a 
                 href={project.externalLink} 
                 target="_blank" 
-                className="group relative overflow-hidden px-10 py-5 bg-white text-black rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className="group relative overflow-hidden px-10 py-5 bg-white text-black rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] h-[60px]"
               >
-                <div className="absolute inset-0 bg-neutral-900 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                <span className="relative z-10 group-hover:text-white transition-colors duration-500">Launch Project</span>
+                <div className="absolute inset-0 bg-neutral-900 translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                <div className="relative z-10 h-full flex flex-col items-center justify-center transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                  <span className="flex items-center h-full group-hover:opacity-0 transition-opacity duration-300">Launch Project</span>
+                  <span className="flex items-center h-full text-white">Launch Project</span>
+                </div>
               </a>
             )}
           </div>
-        </div>
+        </motion.div>
+
+        {/* Performance / Carbon Footprint Section */}
+        {project.performance && (
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: EASING }}
+            className="grid grid-cols-1 md:grid-cols-12 gap-12 border-t border-neutral-900 pt-12 mb-32"
+          >
+            <div className="md:col-span-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <MetadataItem label="CARBON FOOTPRINT" value={project.performance.carbon} />
+              <MetadataItem label="LOAD TIME" value={project.performance.loadTime} />
+            </div>
+            <div className="md:col-span-4 flex justify-end">
+              <span className="font-mono text-[10px] text-neutral-600 uppercase tracking-widest">ECO-CONSCIOUS DEVELOPMENT</span>
+            </div>
+          </motion.div>
+        )}
 
         {/* Dynamic Content Blocks */}
         <section className="space-y-32 mb-64">
            {project.contentBlocks?.map((block: ContentBlock, i: number) => (
              <motion.div
                key={i}
-               initial={{ opacity: 0, y: 50 }}
+               initial={{ opacity: 0, y: 40 }}
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true, margin: "-10%" }}
-               transition={{ duration: 1, ease: EASING }}
+               transition={{ duration: 0.8, ease: EASING }}
              >
                {block.type === 'text' && (
                  <div className="max-w-3xl">

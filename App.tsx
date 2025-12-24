@@ -104,7 +104,13 @@ const App: React.FC = () => {
                   <Hero siteInfo={content.site_info} />
                   
                   <section id="work" className="px-6 md:px-12 py-32 md:py-64 max-w-7xl mx-auto">
-                    <div className="flex justify-between items-end mb-24">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 40 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, ease: EASING }}
+                      className="flex justify-between items-end mb-24"
+                    >
                       <h2 className="text-4xl md:text-7xl font-bold tracking-tighter uppercase">FEATURED</h2>
                       <button 
                         onClick={() => navigateToView('work')}
@@ -112,7 +118,7 @@ const App: React.FC = () => {
                       >
                         VIEW ALL WORK [ {allProjects.length} ]
                       </button>
-                    </div>
+                    </motion.div>
                     <div className="flex flex-col">
                       {featuredProjects.map((project: Project, idx: number) => (
                         <ProjectCard key={project.id} project={project} index={idx} onClick={() => handleProjectClick(project)} />
@@ -127,13 +133,19 @@ const App: React.FC = () => {
                     </div>
                     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-16">
                       <div className="md:col-span-2">
-                        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-600 block sticky top-32">
+                        <motion.span 
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 0.8, ease: EASING }}
+                          className="font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-600 block sticky top-32"
+                        >
                           {content.about.label}
-                        </span>
+                        </motion.span>
                       </div>
                       <div className="md:col-span-10 md:pl-12">
                         <motion.h3 
-                          initial={{ opacity: 0, y: 20 }}
+                          initial={{ opacity: 0, y: 40 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.8, ease: EASING }}
@@ -142,27 +154,34 @@ const App: React.FC = () => {
                         />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
                           <motion.p 
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2, ease: EASING }}
+                            transition={{ duration: 0.8, delay: 0.1, ease: EASING }}
                             className="text-neutral-400 text-xl leading-relaxed font-light italic border-l border-neutral-800 pl-8"
                           >
                             {content.about.sub_copy}
                           </motion.p>
                           <motion.div
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.3, ease: EASING }}
+                            transition={{ duration: 0.8, delay: 0.2, ease: EASING }}
                           >
                             <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-8 block">SPECIALISATIONS</span>
                             <div className="grid grid-cols-2 gap-y-4">
                               {content.about.skills.map((tag: string, i: number) => (
-                                <div key={tag} className="flex items-center gap-3 group">
+                                <motion.div 
+                                  key={tag} 
+                                  initial={{ opacity: 0, y: 20 }}
+                                  whileInView={{ opacity: 1, y: 0 }}
+                                  viewport={{ once: true }}
+                                  transition={{ duration: 0.6, delay: 0.3 + (i * 0.05), ease: EASING }}
+                                  className="flex items-center gap-3 group"
+                                >
                                   <span className="font-mono text-[9px] text-neutral-700">0{i + 1}</span>
                                   <span className="text-xs uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">{tag}</span>
-                                </div>
+                                </motion.div>
                               ))}
                             </div>
                             <button 
@@ -181,10 +200,15 @@ const App: React.FC = () => {
 
               {currentView === 'work' && (
                 <section className="px-6 md:px-12 pt-48 pb-32 max-w-7xl mx-auto min-h-screen">
-                  <div className="mb-24">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: EASING }}
+                    className="mb-24"
+                  >
                     <span className="font-mono text-xs uppercase tracking-[0.3em] text-neutral-500 mb-4 block">PORTFOLIO INDEX</span>
                     <h1 className="text-6xl md:text-9xl font-bold tracking-tighter uppercase">WORK.</h1>
-                  </div>
+                  </motion.div>
                   <div className="flex flex-col">
                     {allProjects.map((project: Project, idx: number) => (
                       <ProjectCard key={project.id} project={project} index={idx} onClick={() => handleProjectClick(project)} />

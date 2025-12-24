@@ -22,6 +22,11 @@ const App: React.FC = () => {
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
+  // Sync content state when content.json is updated during development
+  useEffect(() => {
+    setContent(contentData as SiteContent);
+  }, [contentData]);
+
   useEffect(() => {
     const handleScroll = () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -66,6 +71,14 @@ const App: React.FC = () => {
     <div className="relative selection:bg-white selection:text-black">
       <CustomCursor />
 
+      {!selectedProjectId && (
+        <Navbar
+          siteInfo={content.site_info}
+          navigation={content.navigation}
+          onViewChange={navigateToView}
+        />
+      )}
+
       <main className="opacity-100 transition-opacity duration-1000">
         <AnimatePresence mode="wait">
           {selectedProjectId ? (
@@ -86,11 +99,6 @@ const App: React.FC = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Navbar
-                siteInfo={content.site_info}
-                navigation={content.navigation}
-                onViewChange={navigateToView}
-              />
 
               <div className="fixed top-0 left-0 w-full h-[2px] z-[60] pointer-events-none">
                 <motion.div
@@ -168,22 +176,7 @@ const App: React.FC = () => {
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.2, ease: EASING }}
                           >
-                            <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-8 block">SPECIALISATIONS</span>
-                            <div className="grid grid-cols-2 gap-y-4">
-                              {content.about.skills.map((tag: string, i: number) => (
-                                <motion.div
-                                  key={tag}
-                                  initial={{ opacity: 0, y: 20 }}
-                                  whileInView={{ opacity: 1, y: 0 }}
-                                  viewport={{ once: true }}
-                                  transition={{ duration: 0.6, delay: 0.3 + (i * 0.05), ease: EASING }}
-                                  className="flex items-center gap-3 group"
-                                >
-                                  <span className="font-mono text-[9px] text-neutral-700">0{i + 1}</span>
-                                  <span className="text-xs uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">{tag}</span>
-                                </motion.div>
-                              ))}
-                            </div>
+
                             <button
                               onClick={() => navigateToView('about')}
                               className="mt-12 group flex items-center gap-4 font-mono text-[10px] uppercase tracking-widest"

@@ -11,7 +11,7 @@ const Hero: React.FC<HeroProps> = ({ siteInfo }) => {
   const nameParts = siteInfo.name.split(' ');
   const line1 = nameParts[0];
   const line2 = nameParts.slice(1).join(' ');
-  
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -48,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ siteInfo }) => {
         </div>
 
         <div className="mt-12 md:mt-24 grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
@@ -61,22 +61,17 @@ const Hero: React.FC<HeroProps> = ({ siteInfo }) => {
               {siteInfo.tagline}
             </p>
           </motion.div>
-          
-          <motion.div 
-             initial={{ scaleX: 0 }}
-             animate={{ scaleX: 1 }}
-             transition={{ delay: 1, duration: 1.5, ease: EASING }}
-             className="hidden md:block md:col-span-4 md:col-start-9 h-[1px] bg-neutral-800 origin-left"
+
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ delay: 1, duration: 1.5, ease: EASING }}
+            className="hidden md:block md:col-span-4 md:col-start-9 h-[1px] bg-neutral-800 origin-left"
           />
         </div>
       </motion.div>
 
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.05 }}
-        transition={{ delay: 1.5, duration: 2 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-white rounded-full blur-[150px] pointer-events-none"
-      />
+
     </section>
   );
 };

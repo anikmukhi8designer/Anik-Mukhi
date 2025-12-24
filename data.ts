@@ -14,7 +14,7 @@ export const INITIAL_CONTENT: SiteContent = {
     "tagline": "DESIGNING CALM, HUMAN-CENTERED EXPERIENCES",
     "location": "GUJARAT, INDIA",
     "email": "anik.mukhi8@gmail.com",
-    "resume_url": "#" // Link to your PDF resume here
+    "resume_url": "https://drive.google.com/file/d/1LtJlq-zsCV_xNDP8pNeV4Ervq5jStsQO/view?usp=sharing" // Link to your PDF resume here
   },
   "navigation": [
     { "label": "HOME", "href": "home", "type": "view" },
@@ -59,7 +59,7 @@ export const INITIAL_CONTENT: SiteContent = {
       "title": "Lumina Digital",
       "tagline": "Illuminating the future of architectural commerce.",
       "category": "E-commerce & Brand",
-      "image": "https://images.unsplash.com/photo-1558444479-c8a51e9a12f6?auto=format&fit=crop&q=80&w=2000",
+      "image": "/CaseStudy/Banner.png",
       "description": "A high-end editorial experience for a modern lighting house, focusing on brutalist aesthetics.",
       "year": "2024",
       "featured": true,

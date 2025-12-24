@@ -17,13 +17,15 @@ const Navbar: React.FC<NavbarProps> = ({ siteInfo, navigation, onViewChange }) =
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      // Hide if scrolling down AND not at the very top (buffer of 10px)
+      if (currentScrollY > lastScrollY && currentScrollY > 10) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
       }
       setLastScrollY(currentScrollY);
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
@@ -38,43 +40,41 @@ const Navbar: React.FC<NavbarProps> = ({ siteInfo, navigation, onViewChange }) =
   };
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.nav
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          exit={{ y: -100 }}
-          transition={{ duration: 0.6, ease: EASING }}
-          className="fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-8 flex justify-between items-center mix-blend-difference"
-        >
-          <motion.button 
-            onClick={() => onViewChange('home')} 
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.4, ease: EASING }}
-            className="font-bold text-xl tracking-tighter uppercase"
+    <motion.nav
+      initial={{ x: "-50%", y: 100, opacity: 0 }}
+      animate={{
+        x: "-50%",
+        y: isVisible ? 0 : 150,
+        opacity: isVisible ? 1 : 0
+      }}
+      transition={{ duration: 0.5, ease: 'easeInOut' }}
+      className="fixed bottom-8 left-1/2 z-[100] w-[90%] md:w-auto md:min-w-[500px] px-8 py-4 flex justify-between items-center bg-[#111111]/80 backdrop-blur-2xl border border-white/10 rounded-full shadow-2xl"
+    >
+      <motion.button
+        onClick={() => onViewChange('home')}
+        whileHover={{ scale: 1.05 }}
+        transition={{ duration: 0.4, ease: EASING }}
+        className="font-bold text-xl tracking-tighter uppercase text-white"
+      >
+        {lastName}.
+      </motion.button>
+
+      <div className="flex gap-8 md:gap-12">
+        {navigation.map((link) => (
+          <a
+            key={link.label}
+            href={link.href}
+            onClick={(e) => handleLinkClick(e, link)}
+            className="group relative font-mono text-[10px] uppercase tracking-widest overflow-hidden h-6"
           >
-            {lastName}.
-          </motion.button>
-          
-          <div className="flex gap-8 md:gap-12">
-            {navigation.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link)}
-                className="group relative font-mono text-[10px] uppercase tracking-widest overflow-hidden h-6"
-              >
-                <div className="relative flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2">
-                  <span className="py-1">{link.label}</span>
-                  <span className="py-1 text-neutral-400">{link.label}</span>
-                </div>
-                <span className="absolute bottom-0 left-0 w-full h-[1px] bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-              </a>
-            ))}
-          </div>
-        </motion.nav>
-      )}
-    </AnimatePresence>
+            <div className="relative flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1/2">
+              <span className="py-1 text-neutral-400 group-hover:text-white transition-colors">{link.label}</span>
+              <span className="py-1 text-white">{link.label}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </motion.nav>
   );
 };
 

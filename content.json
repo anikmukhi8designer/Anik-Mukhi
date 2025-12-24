@@ -3,57 +3,78 @@
   "site_info": {
     "name": "ANIK MUKHI",
     "role": "UI/UX DESIGNER & VIBE CODER",
-    "tagline": "DESIGNING CALM, HUMAN-CENTERED EXPERIENCES",
+    "tagline": "UI/UX DESIGNER & VIBE CODER",
     "location": "GUJARAT, INDIA",
     "email": "anik.mukhi8@gmail.com",
-    "resume_url": "#"
+    "resume_url": "https://drive.google.com/file/d/1LtJlq-zsCV_xNDP8pNeV4Ervq5jStsQO/view?usp=sharing"
   },
   "navigation": [
     {
       "label": "WORK",
-      "href": "#work"
+      "href": "work",
+      "type": "view"
     },
     {
       "label": "ABOUT",
-      "href": "#about"
-    },
-    {
-      "label": "EXPERIENCE",
-      "href": "#experience"
+      "href": "about",
+      "type": "view"
     },
     {
       "label": "CONTACT",
-      "href": "#contact"
+      "href": "#contact",
+      "type": "internal"
     }
   ],
   "about": {
     "label": "ABOUT ME",
     "intro": "I am Anik Mukhi, a designer and developer focused on crafting digital interfaces that feel as intentional as physical objects.",
-    "main_copy": "I believe that digital experiences should be as <i>tangible</i> as physical objects. My approach combines systematic engineering with artistic intuition to create products that feel <b>alive</b>.",
-    "sub_copy": "Currently available for freelance partnerships and high-impact digital products. Based in London, working globally.",
-    "education": [],
+    "main_copy": "I design digital experiences that feel real—where intuitive UX meets expressive code to create products that feel alive.",
+    "sub_copy": "Currently available for freelance partnerships and high-impact digital products. Based in Gujarat, India.",
+    "education": [
+      {
+        "id": "edu1",
+        "degree": "B.E. Computer Engineering",
+        "institution": "LDRP-ITR",
+        "year": "2021 — 2024"
+      },
+      {
+        "id": "edu2",
+        "degree": "Diploma Computer Engineering",
+        "institution": "K.D Polytechnic",
+        "year": "2018 — 2021"
+      }
+    ],
     "certificates": [],
     "skills": [
-      "UX Audit",
-      "Motion",
-      "Strategy",
-      "UI/UX",
-      "Branding"
+      "Figma",
+      "Adobe Photoshop",
+      "Illustrator",
+      "Framer",
+      "Wix",
+      "React.js",
+      "HTML/CSS",
+      "JavaScript",
+      "Python",
+      "SQL",
+      "WordPress",
+      "GitHub"
     ]
   },
   "projects": [
     {
       "id": "01",
-      "title": "Lumina Digital",
-      "tagline": "Illuminating the future of architectural commerce.",
-      "category": "E-commerce & Brand",
-      "image": "https://images.unsplash.com/photo-1558444479-c8a51e9a12f6?auto=format&fit=crop&q=80&w=2000",
-      "description": "A high-end editorial experience for a modern lighting house, focusing on brutalist aesthetics and fluid interactions.",
+      "title": "NETFLIX UX CASE STUDY",
+      "featured": true,
+      "tagline": "UX CASE STUDY",
+      "category": "UI/UX Design",
+      "image": "/projects/Netflixbanner.png",
+      "description": "A concept-driven UX case study focused on improving content discovery, personalization, and decision-making on Netflix. The project explores how thoughtful UX, motion, and micro-interactions can reduce choice fatigue and help users find the right content faster.",
       "year": "2024",
       "services": [
-        "Visual Identity",
-        "Web Development",
-        "Creative Direction"
+        "UX Research",
+        "Interaction Design",
+        "UI Design",
+        "Prototyping"
       ],
       "liveLink": "https://lumina.digital",
       "awards": [
@@ -70,23 +91,49 @@
           "value": "98/100"
         }
       ],
-      "performance": {
-        "carbon": "0.24g CO2",
-        "loadTime": "0.8s"
-      },
       "gallery": [
-        "https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=1600",
-        "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600",
-        "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&q=80&w=1600"
+        "/projects/Netflixdetails.png",
+        "/projects/Frame_3.png",
+        "/projects/Slide_16_9_1.png"
       ],
-      "_comment": "Add more architectural shots if client approves."
+      "contentBlocks": [
+        {
+          "type": "text",
+          "title": "THE CHALLENGE",
+          "body": "Netflix users face decision paralysis when browsing thousands of titles. The average user spends 18 minutes browsing before making a choice, and 20% abandon the platform without watching anything."
+        },
+        {
+          "type": "text",
+          "title": "THE APPROACH",
+          "body": "This case study reimagines Netflix's content discovery through enhanced personalization algorithms, intuitive micro-interactions, and a streamlined decision-making flow that reduces cognitive load while maintaining user engagement."
+        },
+        {
+          "type": "image",
+          "images": [
+            "/projects/Netflixdetails.png"
+          ],
+          "caption": "Redesigned Netflix interface featuring improved content discovery and personalized recommendations"
+        },
+        {
+          "type": "text",
+          "title": "KEY INSIGHTS",
+          "body": "Through user research and behavioral analysis, we identified three critical pain points: overwhelming choice architecture, ineffective recommendation algorithms, and lack of contextual information during browsing. Our solution addresses each through thoughtful UX patterns and motion design."
+        },
+        {
+          "type": "text",
+          "title": "IMPACT",
+          "body": "The proposed redesign demonstrates how strategic UX improvements can transform user behavior. By reducing decision time by 40% and increasing content engagement, this case study showcases the power of user-centered design in streaming platforms."
+        }
+      ],
+      "_comment": "Netflix UX case study with detailed content blocks"
     },
     {
       "id": "02",
       "title": "Aether Archive",
+      "featured": true,
       "tagline": "A digital vault for speculative architectural concepts.",
       "category": "UI/UX Design",
-      "image": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2000",
+      "image": "/projects/BlueRealestate.png",
       "description": "Minimalist documentation platform for speculative architecture, balancing heavy typography with expansive negative space.",
       "year": "2023",
       "services": [
@@ -114,32 +161,39 @@
         "loadTime": "0.4s"
       },
       "gallery": [
-        "https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&q=80&w=1600",
-        "https://images.unsplash.com/photo-1449156059431-789955427ec6?auto=format&fit=crop&q=80&w=1600"
+        "/projects/Frame_162927.png",
+        "/projects/Slide_16_9_12.png"
       ]
     }
   ],
   "experience": [
     {
       "id": "e1",
-      "company": "Stellar Labs",
-      "role": "Senior Product Designer",
-      "period": "2023 — PRESENT",
-      "description": "Leading the design system team and defining the visual language for next-generation data visualization tools."
+      "company": "MobileFirst Application",
+      "role": "Junior UI/UX Designer",
+      "period": "JULY 2024 — PRESENT",
+      "description": "Collaborated with teams to design intuitive interfaces for fintech/sportech. Gained expertise with Wix Editor and Wix Studio, developing custom layouts and interactive features."
     },
     {
       "id": "e2",
-      "company": "Nexus Studio",
-      "role": "Visual Designer",
-      "period": "2021 — 2023",
-      "description": "Collaborated with global brands to craft immersive digital storytelling experiences and high-performance marketing sites."
+      "company": "Startup",
+      "role": "UI Designer",
+      "period": "APRIL 2024 — JUNE 2024",
+      "description": "Directed mobile app interface creation for a Dubai startup. Used wireframes to enhance structure and navigation. Collaborated with cross-functional teams to refine designs."
     },
     {
       "id": "e3",
-      "company": "Draft & Co",
-      "role": "UI Developer",
-      "period": "2019 — 2021",
-      "description": "Bridging the gap between design and engineering, focused on complex React applications and fluid motion systems."
+      "company": "HelpyMoto",
+      "role": "UI Design Intern",
+      "period": "DEC 2023 — APRIL 2024",
+      "description": "Created user-focused designs for web and mobile apps. Developed responsive layouts ensuring consistent user experience across devices."
+    },
+    {
+      "id": "e4",
+      "company": "Amivir Info-tech",
+      "role": "Front-End Developer Intern",
+      "period": "JUN 2023 — AUG 2023",
+      "description": "Built strong web dev foundation with HTML, CSS, JavaScript. Contributed to successful completion of real-world projects."
     }
   ],
   "footer": {

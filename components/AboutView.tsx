@@ -11,19 +11,39 @@ interface AboutViewProps {
 const AboutView: React.FC<AboutViewProps> = ({ content }) => {
   // Dynamic calculation of total years based on experience array
   const totalYears = React.useMemo(() => {
-    const currentYear = new Date().getFullYear();
-    return content.experience.reduce((total, exp) => {
-      // Split by common dash types: em-dash, en-dash, or hyphen
-      const parts = exp.period.split(/[—–-]/).map(s => s.trim().toUpperCase());
-      if (parts.length === 2) {
-        const startYear = parseInt(parts[0]);
-        const endYear = parts[1] === 'PRESENT' ? currentYear : parseInt(parts[1]);
-        if (!isNaN(startYear) && !isNaN(endYear)) {
-          return total + (endYear - startYear);
+    const parseDateStr = (dateStr: string) => {
+      const s = dateStr.trim().toUpperCase();
+      if (s === 'PRESENT') return new Date();
+
+      const yearMatch = s.match(/(\d{4})/);
+      if (!yearMatch) return new Date();
+      const year = parseInt(yearMatch[1]);
+
+      const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+      let month = 0;
+      for (let i = 0; i < 12; i++) {
+        if (s.substring(0, 3).includes(months[i])) {
+          month = i;
+          break;
         }
       }
-      return total;
+      return new Date(year, month);
+    };
+
+    const totalMonths = content.experience.reduce((acc, exp) => {
+      const parts = exp.period.split(/[—–-]/);
+      if (parts.length < 2) return acc;
+
+      const start = parseDateStr(parts[0]);
+      const end = parseDateStr(parts[1]);
+
+      // Calculate difference in months
+      let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+      // Minimal duration of 1 month if dates match or are inverted
+      return acc + Math.max(0, months);
     }, 0);
+
+    return (totalMonths / 12).toFixed(1);
   }, [content.experience]);
 
   return (
@@ -35,7 +55,7 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
     >
       <div className="max-w-7xl mx-auto">
         <header className="mb-32">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: EASING }}
@@ -43,7 +63,7 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
           >
             STORY
           </motion.span>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease: EASING }}
@@ -51,7 +71,7 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
           >
             ABOUT.
           </motion.h1>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,7 +82,7 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
               <p className="text-2xl md:text-4xl text-neutral-300 font-light leading-snug mb-12">
                 {content.about.intro}
               </p>
-              
+
               {/* Prominent Experience Metric */}
               <div className="flex items-center gap-12 border-t border-neutral-900 pt-12">
                 <div>
@@ -84,7 +104,7 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
             </div>
 
             <div className="md:col-span-5 flex flex-col md:items-end justify-between py-2">
-              <a 
+              <a
                 href={content.site_info.resume_url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -100,7 +120,7 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
                 <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                   {content.about.skills.slice(0, 4).map((skill, i) => (
                     <div key={skill} className="flex items-center gap-2 opacity-50 group hover:opacity-100 transition-opacity">
-                      <span className="font-mono text-[8px] text-neutral-700">0{i+1}</span>
+                      <span className="font-mono text-[8px] text-neutral-700">0{i + 1}</span>
                       <span className="text-[10px] uppercase tracking-widest">{skill}</span>
                     </div>
                   ))}
@@ -112,108 +132,110 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
 
         {/* Experience Grid */}
         <section className="py-24 border-t border-neutral-900">
-           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              <div className="md:col-span-3">
-                <motion.span 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, ease: EASING }}
-                  className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 sticky top-32"
-                >
-                  PROFESSIONAL PATH
-                </motion.span>
-              </div>
-              <div className="md:col-span-9 flex flex-col gap-24">
-                {content.experience.map((exp: Experience, idx: number) => (
-                  <motion.div 
-                    key={exp.id}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: idx * 0.1, ease: EASING }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8 group cursor-default"
-                  >
-                    <div>
-                      <span className="font-mono text-[10px] text-neutral-600 uppercase mb-4 block group-hover:text-neutral-400 transition-colors">{exp.period}</span>
-                      <h4 className="text-3xl font-bold uppercase tracking-tight group-hover:italic transition-all duration-500 group-hover:translate-x-2 ease-[cubic-bezier(0.16,1,0.3,1)]">{exp.company}</h4>
-                      <p className="font-mono text-[10px] uppercase text-neutral-500 mt-2">{exp.role}</p>
-                    </div>
-                    <div>
-                      <p className="text-neutral-400 text-lg leading-relaxed border-l border-neutral-900 pl-8 group-hover:border-neutral-600 transition-all duration-500">{exp.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-           </div>
-        </section>
-
-        {/* Skills Section */}
-        <section className="py-24 border-t border-neutral-900">
-           <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-              <div className="md:col-span-3">
-                <motion.span 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, ease: EASING }}
-                  className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 sticky top-32"
-                >
-                  CAPABILITIES
-                </motion.span>
-              </div>
-              <div className="md:col-span-9">
-                <div className="flex flex-wrap gap-x-4 gap-y-6">
-                  {content.about.skills.map((skill, idx) => (
-                    <motion.div
-                      key={skill}
-                      initial={{ opacity: 0, y: 40 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: idx * 0.05, ease: EASING }}
-                      className="group relative px-6 py-2 border border-neutral-900 rounded-full cursor-default overflow-hidden"
-                    >
-                      <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
-                      <span className="relative z-10 font-mono text-[10px] uppercase tracking-widest text-neutral-400 group-hover:text-black transition-colors duration-500">
-                        {skill}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-           </div>
-        </section>
-
-        {/* Education & Certs */}
-        <section className="py-24 border-t border-neutral-900 grid grid-cols-1 md:grid-cols-12 gap-24">
-           <div className="md:col-span-6">
-              <motion.span 
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="md:col-span-3">
+              <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8, ease: EASING }}
-                className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-12 block"
+                className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 sticky top-32"
               >
-                EDUCATION
+                PROFESSIONAL PATH
               </motion.span>
-              <div className="flex flex-col gap-12">
-                {content.about.education.map((edu: Education, idx: number) => (
-                  <motion.div 
-                    key={edu.id} 
+            </div>
+            <div className="md:col-span-9 flex flex-col gap-24">
+              {content.experience.map((exp: Experience, idx: number) => (
+                <motion.div
+                  key={exp.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: idx * 0.1, ease: EASING }}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-8 group cursor-default"
+                >
+                  <div>
+                    <span className="font-mono text-[10px] text-neutral-600 uppercase mb-4 block group-hover:text-neutral-400 transition-colors">{exp.period}</span>
+                    <h4 className="text-3xl font-bold uppercase tracking-tight group-hover:italic transition-all duration-500 group-hover:translate-x-2 ease-[cubic-bezier(0.16,1,0.3,1)]">{exp.company}</h4>
+                    <p className="font-mono text-[10px] uppercase text-neutral-500 mt-2">{exp.role}</p>
+                  </div>
+                  <div>
+                    <p className="text-neutral-400 text-lg leading-relaxed border-l border-neutral-900 pl-8 group-hover:border-neutral-600 transition-all duration-500">{exp.description}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Skills Section */}
+        <section className="py-24 border-t border-neutral-900">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <div className="md:col-span-3">
+              <motion.span
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: EASING }}
+                className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 sticky top-32"
+              >
+                CAPABILITIES
+              </motion.span>
+            </div>
+            <div className="md:col-span-9">
+              <div className="flex flex-wrap gap-x-4 gap-y-6">
+                {content.about.skills.map((skill, idx) => (
+                  <motion.div
+                    key={skill}
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: idx * 0.1, ease: EASING }}
-                    className="group cursor-default"
+                    transition={{ duration: 0.8, delay: idx * 0.05, ease: EASING }}
+                    className="group relative px-6 py-2 border border-neutral-900 rounded-full cursor-default overflow-hidden"
                   >
-                    <h5 className="text-2xl font-bold uppercase tracking-tight group-hover:text-white transition-colors">{edu.degree}</h5>
-                    <p className="text-neutral-400 mt-2 uppercase text-sm">{edu.institution} &mdash; {edu.year}</p>
+                    <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                    <span className="relative z-10 font-mono text-[10px] uppercase tracking-widest text-neutral-400 group-hover:text-black transition-colors duration-500">
+                      {skill}
+                    </span>
                   </motion.div>
                 ))}
               </div>
-           </div>
-           <div className="md:col-span-6">
-              <motion.span 
+            </div>
+          </div>
+        </section>
+
+        {/* Education & Certs */}
+        <section className="py-24 border-t border-neutral-900 grid grid-cols-1 md:grid-cols-12 gap-24">
+          <div className={content.about.certificates.length > 0 ? "md:col-span-6" : "md:col-span-12"}>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: EASING }}
+              className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-12 block"
+            >
+              EDUCATION
+            </motion.span>
+            <div className="flex flex-col gap-12">
+              {content.about.education.map((edu: Education, idx: number) => (
+                <motion.div
+                  key={edu.id}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: idx * 0.1, ease: EASING }}
+                  className="group cursor-default"
+                >
+                  <h5 className="text-2xl font-bold uppercase tracking-tight group-hover:text-white transition-colors">{edu.degree}</h5>
+                  <p className="text-neutral-400 mt-2 uppercase text-sm">{edu.institution} &mdash; {edu.year}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {content.about.certificates.length > 0 && (
+            <div className="md:col-span-6">
+              <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -224,10 +246,10 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
               </motion.span>
               <div className="flex flex-col gap-8">
                 {content.about.certificates.map((cert: Certificate, idx: number) => (
-                  <motion.a 
-                    key={cert.id} 
-                    href={cert.url} 
-                    target="_blank" 
+                  <motion.a
+                    key={cert.id}
+                    href={cert.url}
+                    target="_blank"
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -240,13 +262,14 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
                       <p className="font-mono text-[10px] text-neutral-500 uppercase mt-1">{cert.issuer} &middot; {cert.year}</p>
                     </div>
                     <div className="flex items-center gap-2 overflow-hidden h-6">
-                       <span className="text-[10px] font-mono text-neutral-600 group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">VIEW PDF</span>
-                       <span className="absolute right-0 translate-y-full group-hover:translate-y-0 text-[10px] font-mono text-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">OPEN FILE</span>
+                      <span className="text-[10px] font-mono text-neutral-600 group-hover:-translate-y-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">VIEW PDF</span>
+                      <span className="absolute right-0 translate-y-full group-hover:translate-y-0 text-[10px] font-mono text-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">OPEN FILE</span>
                     </div>
                   </motion.a>
                 ))}
               </div>
-           </div>
+            </div>
+          )}
         </section>
       </div>
     </motion.div>

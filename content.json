@@ -5,7 +5,8 @@
     "role": "UI/UX DESIGNER & VIBE CODER",
     "tagline": "DESIGNING CALM, HUMAN-CENTERED EXPERIENCES",
     "location": "GUJARAT, INDIA",
-    "email": "anik.mukhi8@gmail.com"
+    "email": "anik.mukhi8@gmail.com",
+    "resume_url": "#"
   },
   "navigation": [
     {
@@ -27,8 +28,11 @@
   ],
   "about": {
     "label": "ABOUT ME",
+    "intro": "I am Anik Mukhi, a designer and developer focused on crafting digital interfaces that feel as intentional as physical objects.",
     "main_copy": "I believe that digital experiences should be as <i>tangible</i> as physical objects. My approach combines systematic engineering with artistic intuition to create products that feel <b>alive</b>.",
     "sub_copy": "Currently available for freelance partnerships and high-impact digital products. Based in London, working globally.",
+    "education": [],
+    "certificates": [],
     "skills": [
       "UX Audit",
       "Motion",

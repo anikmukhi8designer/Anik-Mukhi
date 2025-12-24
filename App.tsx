@@ -13,29 +13,14 @@ import { EASING } from './constants';
 import { Project, SiteContent } from './types';
 import { INITIAL_CONTENT } from './data';
 
+import contentData from './content.json';
+
 const App: React.FC = () => {
-  const [content, setContent] = useState<SiteContent>(INITIAL_CONTENT);
+  const [content, setContent] = useState<SiteContent>(contentData as SiteContent);
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'work' | 'about'>('home');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-
-  // Sync with content.json for live updates
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const response = await fetch('./content.json');
-        if (response.ok) {
-          const data = await response.json();
-          setContent(data);
-          console.log("Content synced from content.json");
-        }
-      } catch (error) {
-        console.warn("Falling back to internal data.ts", error);
-      }
-    };
-    fetchContent();
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -80,13 +65,13 @@ const App: React.FC = () => {
   return (
     <div className="relative selection:bg-white selection:text-black">
       <CustomCursor />
-      
+
       <main className="opacity-100 transition-opacity duration-1000">
         <AnimatePresence mode="wait">
           {selectedProjectId ? (
-            <ProjectDetail 
+            <ProjectDetail
               key="detail"
-              project={selectedProject!} 
+              project={selectedProject!}
               allProjects={allProjects}
               onBack={() => setSelectedProjectId(null)}
               onNavigate={(id) => {
@@ -95,20 +80,20 @@ const App: React.FC = () => {
               }}
             />
           ) : (
-            <motion.div 
+            <motion.div
               key={currentView}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <Navbar 
-                siteInfo={content.site_info} 
-                navigation={content.navigation} 
+              <Navbar
+                siteInfo={content.site_info}
+                navigation={content.navigation}
                 onViewChange={navigateToView}
               />
-              
+
               <div className="fixed top-0 left-0 w-full h-[2px] z-[60] pointer-events-none">
-                <motion.div 
+                <motion.div
                   className="h-full bg-white"
                   style={{ width: `${scrollProgress}%` }}
                 />
@@ -117,9 +102,9 @@ const App: React.FC = () => {
               {currentView === 'home' && (
                 <>
                   <Hero siteInfo={content.site_info} />
-                  
+
                   <section id="work" className="px-6 md:px-12 py-32 md:py-64 max-w-7xl mx-auto">
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: 40 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -127,7 +112,7 @@ const App: React.FC = () => {
                       className="flex justify-between items-end mb-24"
                     >
                       <h2 className="text-4xl md:text-7xl font-bold tracking-tighter uppercase">FEATURED</h2>
-                      <button 
+                      <button
                         onClick={() => navigateToView('work')}
                         className="font-mono text-xs text-neutral-500 hover:text-white uppercase tracking-widest transition-colors"
                       >
@@ -148,7 +133,7 @@ const App: React.FC = () => {
                     </div>
                     <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-y-16">
                       <div className="md:col-span-2">
-                        <motion.span 
+                        <motion.span
                           initial={{ opacity: 0, y: 20 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
@@ -159,16 +144,16 @@ const App: React.FC = () => {
                         </motion.span>
                       </div>
                       <div className="md:col-span-10 md:pl-12">
-                        <motion.h3 
+                        <motion.h3
                           initial={{ opacity: 0, y: 40 }}
                           whileInView={{ opacity: 1, y: 0 }}
                           viewport={{ once: true }}
                           transition={{ duration: 0.8, ease: EASING }}
-                          className="text-4xl md:text-7xl font-light leading-[1.1] tracking-tight mb-20 max-w-5xl" 
-                          dangerouslySetInnerHTML={{ __html: content.about.main_copy }} 
+                          className="text-4xl md:text-7xl font-light leading-[1.1] tracking-tight mb-20 max-w-5xl"
+                          dangerouslySetInnerHTML={{ __html: content.about.main_copy }}
                         />
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-                          <motion.p 
+                          <motion.p
                             initial={{ opacity: 0, y: 40 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -186,8 +171,8 @@ const App: React.FC = () => {
                             <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-8 block">SPECIALISATIONS</span>
                             <div className="grid grid-cols-2 gap-y-4">
                               {content.about.skills.map((tag: string, i: number) => (
-                                <motion.div 
-                                  key={tag} 
+                                <motion.div
+                                  key={tag}
                                   initial={{ opacity: 0, y: 20 }}
                                   whileInView={{ opacity: 1, y: 0 }}
                                   viewport={{ once: true }}
@@ -199,7 +184,7 @@ const App: React.FC = () => {
                                 </motion.div>
                               ))}
                             </div>
-                            <button 
+                            <button
                               onClick={() => navigateToView('about')}
                               className="mt-12 group flex items-center gap-4 font-mono text-[10px] uppercase tracking-widest"
                             >
@@ -215,7 +200,7 @@ const App: React.FC = () => {
 
               {currentView === 'work' && (
                 <section className="px-6 md:px-12 pt-48 pb-32 max-w-7xl mx-auto min-h-screen">
-                  <motion.div 
+                  <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: EASING }}

@@ -1,6 +1,12 @@
 
 import { SiteContent } from './types';
 
+/**
+ * PORTFOLIO CONTENT CONFIGURATION
+ * Edit this file to update your personal information, projects, and experience.
+ * The UI will automatically reflect these changes.
+ */
+
 export const INITIAL_CONTENT: SiteContent = {
   "site_info": {
     "name": "ANIK MUKHI",
@@ -8,7 +14,7 @@ export const INITIAL_CONTENT: SiteContent = {
     "tagline": "DESIGNING CALM, HUMAN-CENTERED EXPERIENCES",
     "location": "LONDON, UK",
     "email": "hello@anikmukhi.design",
-    "resume_url": "#"
+    "resume_url": "#" // Link to your PDF resume here
   },
   "navigation": [
     { "label": "HOME", "href": "home", "type": "view" },
@@ -133,7 +139,7 @@ export const INITIAL_CONTENT: SiteContent = {
       "id": "e1",
       "company": "Stellar Labs",
       "role": "Senior Product Designer",
-      "period": "2023 — PRESENT",
+      "period": "2023 — PRESENT", // "PRESENT" keyword is used to calculate tenure until current year
       "description": "Leading the design system team and defining the visual language for next-generation data visualization tools."
     },
     {

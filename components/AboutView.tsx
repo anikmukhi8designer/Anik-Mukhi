@@ -9,6 +9,23 @@ interface AboutViewProps {
 }
 
 const AboutView: React.FC<AboutViewProps> = ({ content }) => {
+  // Dynamic calculation of total years based on experience array
+  const totalYears = React.useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    return content.experience.reduce((total, exp) => {
+      // Split by common dash types: em-dash, en-dash, or hyphen
+      const parts = exp.period.split(/[—–-]/).map(s => s.trim().toUpperCase());
+      if (parts.length === 2) {
+        const startYear = parseInt(parts[0]);
+        const endYear = parts[1] === 'PRESENT' ? currentYear : parseInt(parts[1]);
+        if (!isNaN(startYear) && !isNaN(endYear)) {
+          return total + (endYear - startYear);
+        }
+      }
+      return total;
+    }, 0);
+  }, [content.experience]);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -34,27 +51,61 @@ const AboutView: React.FC<AboutViewProps> = ({ content }) => {
           >
             ABOUT.
           </motion.h1>
+          
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: EASING }}
             className="grid grid-cols-1 md:grid-cols-12 gap-12"
           >
-            <div className="md:col-span-8">
-              <p className="text-2xl md:text-4xl text-neutral-300 font-light leading-snug">
+            <div className="md:col-span-7">
+              <p className="text-2xl md:text-4xl text-neutral-300 font-light leading-snug mb-12">
                 {content.about.intro}
               </p>
+              
+              {/* Prominent Experience Metric */}
+              <div className="flex items-center gap-12 border-t border-neutral-900 pt-12">
+                <div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-4 block">EXPERIENCE</span>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-6xl md:text-8xl font-bold tracking-tighter">{totalYears}+</span>
+                    <span className="text-xs uppercase tracking-widest text-neutral-500 font-mono">Years of Mastery</span>
+                  </div>
+                </div>
+                <div className="hidden md:block h-16 w-[1px] bg-neutral-900" />
+                <div className="hidden md:block">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-4 block">STATUS</span>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <span className="text-xs uppercase tracking-widest text-neutral-300 font-mono">Available for projects</span>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="md:col-span-4 flex md:justify-end items-end">
+
+            <div className="md:col-span-5 flex flex-col md:items-end justify-between py-2">
               <a 
                 href={content.site_info.resume_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative overflow-hidden px-8 py-4 border border-neutral-800 rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className="group relative overflow-hidden px-10 py-5 border border-neutral-800 rounded-full font-mono text-xs uppercase tracking-widest transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] w-fit"
               >
                 <div className="absolute inset-0 bg-white translate-x-[-101%] group-hover:translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
                 <span className="relative z-10 group-hover:text-black transition-colors duration-500">Download Resume PDF</span>
               </a>
+
+              {/* Specialisations snippet similar to home page */}
+              <div className="hidden md:block w-full max-w-xs mt-12 md:mt-0">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-600 mb-6 block">SPECIALISATIONS</span>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                  {content.about.skills.slice(0, 4).map((skill, i) => (
+                    <div key={skill} className="flex items-center gap-2 opacity-50 group hover:opacity-100 transition-opacity">
+                      <span className="font-mono text-[8px] text-neutral-700">0{i+1}</span>
+                      <span className="text-[10px] uppercase tracking-widest">{skill}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.div>
         </header>

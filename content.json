@@ -3,10 +3,10 @@
   "_note": "EDITABLE MASTER FILE: Change values here to update the site. Use '_comment' keys for internal notes.",
   "site_info": {
     "name": "ANIK MUKHI",
-    "role": "UI/UX DESIGNER & VIBE CODER",
+    "role": "UI/UX DESIGNER & DEVELOPER",
     "tagline": "DESIGNING CALM, HUMAN-CENTERED EXPERIENCES",
-    "location": "GUJARAT, INDIA",
-    "email": "anik.mukhi8@gmail.com"
+    "location": "LONDON, UK",
+    "email": "hello@anikmukhi.design"
   },
   "navigation": [
     { "label": "WORK", "href": "#work" },
@@ -18,12 +18,12 @@
     "label": "ABOUT ME",
     "main_copy": "I believe that digital experiences should be as <i>tangible</i> as physical objects. My approach combines systematic engineering with artistic intuition to create products that feel <b>alive</b>.",
     "sub_copy": "Currently available for freelance partnerships and high-impact digital products. Based in London, working globally.",
-    "skills": ["UX Audit", "Motion", "UI/UX", "Branding"]
+    "skills": ["React", "TypeScript", "Motion", "Strategy", "UI/UX", "Branding"]
   },
   "projects": [
     {
       "id": "01",
-      "title": "Netflix UX Case-studies",
+      "title": "Lumina Digital",
       "tagline": "Illuminating the future of architectural commerce.",
       "category": "E-commerce & Brand",
       "image": "https://images.unsplash.com/photo-1558444479-c8a51e9a12f6?auto=format&fit=crop&q=80&w=2000",

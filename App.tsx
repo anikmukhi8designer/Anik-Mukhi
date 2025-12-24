@@ -10,15 +10,32 @@ import AboutView from './components/AboutView';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import { EASING } from './constants';
-import { Project } from './types';
+import { Project, SiteContent } from './types';
 import { INITIAL_CONTENT } from './data';
 
 const App: React.FC = () => {
-  const [content] = useState(INITIAL_CONTENT);
+  const [content, setContent] = useState<SiteContent>(INITIAL_CONTENT);
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'work' | 'about'>('home');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Sync with content.json for live updates
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const response = await fetch('./content.json');
+        if (response.ok) {
+          const data = await response.json();
+          setContent(data);
+          console.log("Content synced from content.json");
+        }
+      } catch (error) {
+        console.warn("Falling back to internal data.ts", error);
+      }
+    };
+    fetchContent();
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

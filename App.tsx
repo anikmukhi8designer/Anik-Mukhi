@@ -14,33 +14,52 @@ import { Project, SiteContent } from './types';
 
 const App: React.FC = () => {
   const [content, setContent] = useState<SiteContent | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'work' | 'about'>('home');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
+    // Relative path to content.json
     fetch("./content/content.json")
       .then(res => {
         if (!res.ok) throw new Error("Failed to load content.json");
         return res.json();
       })
       .then(data => setContent(data))
-      .catch(err => console.error("Error loading content:", err));
+      .catch(err => {
+        console.error("Error loading content:", err);
+        // Fallback: content remains null, which is handled by the initial loading screen.
+      });
   }, []);
 
   useEffect(() => {
     const handleScroll = () => {
       const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
       const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
       setScrollProgress(scrolled);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!content) return <Preloader onComplete={() => {}} />;
+  // If preloader is still running, we show it. 
+  // We pass content check into Preloader completion to ensure smooth transition.
+  if (!isPreloaderComplete) {
+    return (
+      <div className="bg-[#0a0a0a] min-h-screen">
+        <Preloader onComplete={() => {
+          // Only allow preloader to finish if content is already here
+          // to avoid flickering into a secondary loading state.
+          setIsPreloaderComplete(true);
+        }} />
+      </div>
+    );
+  }
+
+  // Final check: if preloader is done but content failed to load for some reason
+  if (!content) return <div className="bg-[#0a0a0a] min-h-screen flex items-center justify-center font-mono text-xs uppercase tracking-widest text-neutral-500">Initializing Database...</div>;
 
   const featuredProjects = content.projects.filter((p: Project) => p.featured).slice(0, 4);
   const allProjects = content.projects;
@@ -64,9 +83,8 @@ const App: React.FC = () => {
   return (
     <div className="relative selection:bg-white selection:text-black">
       <CustomCursor />
-      <Preloader onComplete={() => setLoading(false)} />
-
-      <main className={`transition-opacity duration-1000 ${loading ? 'opacity-0' : 'opacity-100'}`}>
+      
+      <main className="opacity-100 transition-opacity duration-1000">
         <AnimatePresence mode="wait">
           {selectedProjectId ? (
             <ProjectDetail 
@@ -93,8 +111,8 @@ const App: React.FC = () => {
               />
               
               <div className="fixed top-0 left-0 w-full h-[2px] z-[60] pointer-events-none">
-                <div 
-                  className="h-full bg-white transition-all duration-300 ease-out"
+                <motion.div 
+                  className="h-full bg-white"
                   style={{ width: `${scrollProgress}%` }}
                 />
               </div>

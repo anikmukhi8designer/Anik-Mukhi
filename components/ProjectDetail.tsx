@@ -84,9 +84,46 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
           className="grid grid-cols-1 md:grid-cols-12 gap-12 py-24 border-b border-neutral-900"
         >
           <div className="md:col-span-8">
-             <h2 className="text-3xl md:text-5xl font-light leading-snug text-neutral-200">
+             <h2 className="text-3xl md:text-5xl font-light leading-snug text-neutral-200 mb-12">
                {project.tagline || project.description}
              </h2>
+             
+             {/* Launch Project Button with Enhanced Interaction */}
+             <a 
+               href={project.externalLink || "#"} 
+               target={project.openInNewTab ? "_blank" : "_self"}
+               className="group relative inline-flex items-center gap-6 px-10 py-6 bg-white text-black overflow-hidden rounded-sm transition-transform duration-500 active:scale-95"
+             >
+                {/* Background Fill Animation */}
+                <div 
+                  className="absolute inset-0 bg-[#0a0a0a] translate-y-full group-hover:translate-y-0 transition-transform duration-600 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                />
+                
+                {/* Text Slide Animation */}
+                <div className="relative z-10 flex flex-col items-center h-5 overflow-hidden font-mono text-[10px] uppercase tracking-[0.3em] font-bold">
+                  <span className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                    Launch Project
+                  </span>
+                  <span className="text-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+                    Launch Project
+                  </span>
+                </div>
+
+                <div className="relative z-10 w-4 h-4 overflow-hidden">
+                   <svg 
+                     className="w-full h-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:text-white group-hover:-translate-y-full"
+                     viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"
+                   >
+                     <path d="M3.64645 11.3536C3.45118 11.5488 3.45118 11.8654 3.64645 12.0607C3.84171 12.2559 4.15829 12.2559 4.35355 12.0607L3.64645 11.3536ZM11 4.5C11 4.22386 10.7761 4 10.5 4L6 4C5.72386 4 5.5 4.22386 5.5 4.5C5.5 4.77614 5.72386 5 6 5L10 5L10 9C10 9.27614 10.2239 9.5 10.5 9.5C10.7761 9.5 11 9.27614 11 9L11 4.5ZM4.35355 12.0607L10.8536 5.56066L10.1464 4.85355L3.64645 11.3536L4.35355 12.0607Z" fill="currentColor" />
+                   </svg>
+                   <svg 
+                     className="absolute top-full left-0 w-full h-full text-white transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full"
+                     viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"
+                   >
+                     <path d="M3.64645 11.3536C3.45118 11.5488 3.45118 11.8654 3.64645 12.0607C3.84171 12.2559 4.15829 12.2559 4.35355 12.0607L3.64645 11.3536ZM11 4.5C11 4.22386 10.7761 4 10.5 4L6 4C5.72386 4 5.5 4.22386 5.5 4.5C5.5 4.77614 5.72386 5 6 5L10 5L10 9C10 9.27614 10.2239 9.5 10.5 9.5C10.7761 9.5 11 9.27614 11 9L11 4.5ZM4.35355 12.0607L10.8536 5.56066L10.1464 4.85355L3.64645 11.3536L4.35355 12.0607Z" fill="currentColor" />
+                   </svg>
+                </div>
+             </a>
           </div>
           <div className="md:col-span-4 grid grid-cols-2 gap-8 h-fit">
             <MetadataItem label="ROLE" values={project.services || ["Design & Development"]} />

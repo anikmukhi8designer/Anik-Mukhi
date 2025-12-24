@@ -10,28 +10,15 @@ import AboutView from './components/AboutView';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 import { EASING } from './constants';
-import { Project, SiteContent } from './types';
+import { Project } from './types';
+import { INITIAL_CONTENT } from './data';
 
 const App: React.FC = () => {
-  const [content, setContent] = useState<SiteContent | null>(null);
+  const [content] = useState(INITIAL_CONTENT);
   const [isPreloaderComplete, setIsPreloaderComplete] = useState(false);
   const [currentView, setCurrentView] = useState<'home' | 'work' | 'about'>('home');
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    // Relative path to content.json
-    fetch("./content/content.json")
-      .then(res => {
-        if (!res.ok) throw new Error("Failed to load content.json");
-        return res.json();
-      })
-      .then(data => setContent(data))
-      .catch(err => {
-        console.error("Error loading content:", err);
-        // Fallback: content remains null, which is handled by the initial loading screen.
-      });
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,22 +31,15 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // If preloader is still running, we show it. 
-  // We pass content check into Preloader completion to ensure smooth transition.
   if (!isPreloaderComplete) {
     return (
       <div className="bg-[#0a0a0a] min-h-screen">
         <Preloader onComplete={() => {
-          // Only allow preloader to finish if content is already here
-          // to avoid flickering into a secondary loading state.
           setIsPreloaderComplete(true);
         }} />
       </div>
     );
   }
-
-  // Final check: if preloader is done but content failed to load for some reason
-  if (!content) return <div className="bg-[#0a0a0a] min-h-screen flex items-center justify-center font-mono text-xs uppercase tracking-widest text-neutral-500">Initializing Database...</div>;
 
   const featuredProjects = content.projects.filter((p: Project) => p.featured).slice(0, 4);
   const allProjects = content.projects;

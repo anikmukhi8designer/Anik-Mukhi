@@ -10,10 +10,10 @@ import { SiteContent } from './types';
 export const INITIAL_CONTENT: SiteContent = {
   "site_info": {
     "name": "ANIK MUKHI",
-    "role": "UI/UX DESIGNER & DEVELOPER",
+    "role": "UI/UX DESIGNER & VIBE CODER",
     "tagline": "DESIGNING CALM, HUMAN-CENTERED EXPERIENCES",
-    "location": "LONDON, UK",
-    "email": "hello@anikmukhi.design",
+    "location": "GUJARAT, INDIA",
+    "email": "anik.mukhi8@gmail.com",
     "resume_url": "#" // Link to your PDF resume here
   },
   "navigation": [

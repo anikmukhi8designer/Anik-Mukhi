@@ -48,13 +48,14 @@ const App: React.FC = () => {
     );
   }
 
-  const featuredProjects = content.projects.filter((p: Project) => p.featured).slice(0, 4);
+  const featuredProjects = content.projects.slice(0, 3);
   const allProjects = content.projects;
   const selectedProject = content.projects.find((p: Project) => p.id === selectedProjectId);
 
   const handleProjectClick = (project: Project) => {
-    if (project.externalLink) {
-      window.open(project.externalLink, project.openInNewTab ? '_blank' : '_self');
+    const link = project.externalLink || project.liveLink;
+    if (link) {
+      window.open(link, project.openInNewTab ? '_blank' : '_self');
     } else {
       setSelectedProjectId(project.id);
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -129,7 +130,13 @@ const App: React.FC = () => {
                     </motion.div>
                     <div className="flex flex-col">
                       {featuredProjects.map((project: Project, idx: number) => (
-                        <ProjectCard key={project.id} project={project} index={idx} onClick={() => handleProjectClick(project)} />
+                        <ProjectCard
+                          key={project.id}
+                          project={project}
+                          index={idx}
+                          onClick={() => handleProjectClick(project)}
+                          isLatest={idx === 0}
+                        />
                       ))}
                     </div>
                   </section>
@@ -204,7 +211,13 @@ const App: React.FC = () => {
                   </motion.div>
                   <div className="flex flex-col">
                     {allProjects.map((project: Project, idx: number) => (
-                      <ProjectCard key={project.id} project={project} index={idx} onClick={() => handleProjectClick(project)} />
+                      <ProjectCard
+                        key={project.id}
+                        project={project}
+                        index={idx}
+                        onClick={() => handleProjectClick(project)}
+                        isLatest={idx === 0}
+                      />
                     ))}
                   </div>
                 </section>

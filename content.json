@@ -62,13 +62,79 @@
   },
   "projects": [
     {
+      "id": "03",
+      "title": "INVESTA CASE STUDY",
+      "featured": true,
+      "tagline": "Smart Saving For Your Goal",
+      "category": "UI/UX Case Study",
+      "image": "/projects/New Design.png",
+      "location": "Remote",
+      "year": "2024",
+      "services": [
+        "Product Design",
+        "UX Research",
+        "Visual Design"
+      ],
+      "overview": "Investa is a modern fintech application designed to help users manage their financial goals with ease. The app simplifies the complex process of tracking multiple savings targets into a single, intuitive dashboard.",
+      "challenge": "Many users find traditional banking apps dry and difficult to navigate when it comes to specific goal-setting. The challenge was to create a platform that encourages saving through positive reinforcement and clear visual progress.",
+      "solution": "We developed a high-fidelity mobile interface that uses clean typography and a vibrant color palette to make financial management feel less like a chore and more like a rewarding experience.",
+      "externalLink": "",
+      "gallery": [
+        "#"
+      ],
+      "contentBlocks": [
+        {
+          "type": "text",
+          "title": "THE VISION",
+          "body": "To empower the next generation of savers with digital tools that prioritize clarity, ease of use, and visual delight."
+        },
+        {
+          "type": "image",
+          "images": [
+            "/projects/Frame_162927.png"
+          ],
+          "caption": "Full case study breakdown highlighting user personas, empathy maps, and high-fidelity mockups"
+        }
+      ],
+      "clientQuote": null
+    },
+    {
+      "id": "02",
+      "title": "Blue House",
+      "featured": true,
+      "tagline": "Real Estate Documentation Platform",
+      "category": "UI/UX Design",
+      "image": "/projects/BlueRealestate.png",
+      "description": "Minimalist documentation platform for speculative architecture, balancing heavy typography with expansive negative space.",
+      "year": "2023",
+      "services": [
+        "UX Strategy",
+        "Interface Design",
+        "3D Motion"
+      ],
+      "externalLink": "",
+      "performance": {
+        "carbon": "0.18g CO2",
+        "loadTime": "0.4s"
+      },
+      "gallery": [
+        "/projects/Frame_162927.png",
+        "/projects/Slide_16_9_12.png"
+      ],
+      "clientQuote": null
+    },
+    {
       "id": "01",
       "title": "NETFLIX UX CASE STUDY",
       "featured": true,
-      "tagline": "UX CASE STUDY",
+      "tagline": "An App Redesign Built for Discovery",
       "category": "UI/UX Design",
       "image": "/projects/Netflixbanner.png",
-      "description": "A concept-driven UX case study focused on improving content discovery, personalization, and decision-making on Netflix. The project explores how thoughtful UX, motion, and micro-interactions can reduce choice fatigue and help users find the right content faster.",
+      "location": "Global / Remote",
+      "description": "A concept-driven UX case study focused on improving content discovery, personalization, and decision-making on Netflix.",
+      "overview": "Netflix users face decision paralysis when browsing thousands of titles. The average user spends 18 minutes browsing before making a choice, and 20% abandon the platform without watching anything.",
+      "challenge": "The challenge was to evolve the streaming experience into a competitive, feature-rich product while setting a new standard for personalization in the entertainment space.",
+      "solution": "Through multiple iterations, research, and testing, we aided in restructuring the app's overall UI and content structure to create a richer discovery experience.",
       "year": "2024",
       "services": [
         "UX Research",
@@ -76,7 +142,7 @@
         "UI Design",
         "Prototyping"
       ],
-      "liveLink": "https://lumina.digital",
+      "externalLink": "",
       "awards": [
         "Awwwards SOTD",
         "FWA of the Month"
@@ -125,45 +191,12 @@
           "body": "The proposed redesign demonstrates how strategic UX improvements can transform user behavior. By reducing decision time by 40% and increasing content engagement, this case study showcases the power of user-centered design in streaming platforms."
         }
       ],
-      "_comment": "Netflix UX case study with detailed content blocks"
-    },
-    {
-      "id": "02",
-      "title": "Aether Archive",
-      "featured": true,
-      "tagline": "A digital vault for speculative architectural concepts.",
-      "category": "UI/UX Design",
-      "image": "/projects/BlueRealestate.png",
-      "description": "Minimalist documentation platform for speculative architecture, balancing heavy typography with expansive negative space.",
-      "year": "2023",
-      "services": [
-        "UX Strategy",
-        "Interface Design",
-        "3D Motion"
-      ],
-      "liveLink": "https://aether.archive",
-      "awards": [
-        "CSS Design Awards",
-        "Behance Featured"
-      ],
-      "results": [
-        {
-          "label": "Active Users",
-          "value": "12k+"
-        },
-        {
-          "label": "Interaction Rate",
-          "value": "68%"
-        }
-      ],
-      "performance": {
-        "carbon": "0.18g CO2",
-        "loadTime": "0.4s"
+      "clientQuote": {
+        "text": "The team's intuitive approach to UX and motion design has transformed how our users discover content. Highly recommended.",
+        "author": "Sarah Chen",
+        "role": "Product Director, Netflix"
       },
-      "gallery": [
-        "/projects/Frame_162927.png",
-        "/projects/Slide_16_9_12.png"
-      ]
+      "_comment": "Netflix UX case study with detailed content blocks"
     }
   ],
   "experience": [

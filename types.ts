@@ -16,8 +16,17 @@ export interface Project {
   year: string;
   featured: boolean;
   externalLink?: string | null;
-  internalSlug?: string;
+  liveLink?: string | null;
+  location?: string;
+  overview?: string;
+  challenge?: string;
+  solution?: string;
   openInNewTab?: boolean;
+  clientQuote?: {
+    text: string;
+    author: string;
+    role?: string;
+  };
   // Detail page data
   tagline?: string;
   services?: string[];

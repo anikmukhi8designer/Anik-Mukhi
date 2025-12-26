@@ -8,9 +8,10 @@ interface ProjectCardProps {
   project: Project;
   index: number;
   onClick: (id: string) => void;
+  isLatest?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick, isLatest }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -37,7 +38,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick }) =>
             <div className="flex items-center gap-4 mb-6">
               <span className="font-mono text-xs text-neutral-500">{project.id}</span>
               <div className="h-[1px] w-8 bg-neutral-700" />
-              <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">{project.category}</span>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">{project.category}</span>
+                {isLatest && (
+                  <motion.span
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="px-2 py-0.5 bg-white text-[8px] font-bold text-black uppercase tracking-[0.2em] rounded-[2px]"
+                  >
+                    Latest
+                  </motion.span>
+                )}
+              </div>
             </div>
 
             <h3

@@ -48,8 +48,8 @@ const App: React.FC = () => {
     );
   }
 
-  const featuredProjects = content.projects.slice(0, 3);
-  const allProjects = content.projects;
+  const allProjects = [...content.projects].sort((a, b) => b.id.localeCompare(a.id));
+  const featuredProjects = allProjects.slice(0, 3);
   const selectedProject = content.projects.find((p: Project) => p.id === selectedProjectId);
 
   const handleProjectClick = (project: Project) => {

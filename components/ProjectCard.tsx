@@ -42,9 +42,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick, isLa
                 <span className="font-mono text-xs uppercase tracking-widest text-neutral-500">{project.category}</span>
                 {isLatest && (
                   <motion.span
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="px-2 py-0.5 bg-white text-[8px] font-bold text-black uppercase tracking-[0.2em] rounded-[2px]"
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{
+                      opacity: 1,
+                      x: 0,
+                      backgroundColor: ["#ffffff", "#f5f5f5", "#ffffff"]
+                    }}
+                    transition={{
+                      opacity: { duration: 0.5 },
+                      backgroundColor: { duration: 2, repeat: Infinity, ease: "linear" }
+                    }}
+                    className="px-2 py-0.5 bg-white text-[8px] font-bold text-black uppercase tracking-[0.2em] rounded-[2px] shadow-[0_0_10px_rgba(255,255,255,0.3)]"
                   >
                     Latest
                   </motion.span>

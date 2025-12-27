@@ -53,7 +53,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
       <div className="fixed inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay z-[100]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
 
       {/* Hero Header: Bold & Minimalist */}
-      <section className="relative w-full pt-48 pb-12 px-6 md:px-12 max-w-7xl mx-auto">
+      <section className="relative w-full pt-32 md:pt-48 pb-12 px-6 md:px-12 max-w-7xl mx-auto">
         <div className="flex flex-col gap-8 mb-20">
           <motion.div
             initial={{ y: 60, opacity: 0 }}
@@ -105,7 +105,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
       <main className="max-w-7xl mx-auto px-6 md:px-12">
         {/* "The Brief" - Unified Grid Rows */}
         {(project.overview || project.challenge || project.solution) && (
-          <section className="py-32 md:py-48 space-y-32">
+          <section className="py-16 md:py-32 md:py-48 space-y-16 md:space-y-32">
             {project.overview && (
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
@@ -166,7 +166,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
         )}
 
         {/* Immersive Visual Blocks - Unified Alignment */}
-        <section className="space-y-48 pb-48">
+        <section className="space-y-24 md:space-y-48 pb-24 md:pb-48">
           {project.contentBlocks?.map((block: ContentBlock, i: number) => (
             <motion.div
               key={i}
@@ -241,7 +241,7 @@ const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, allProjects, onB
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: EASING }}
-            className="py-64 border-t border-neutral-900"
+            className="py-32 md:py-64 border-t border-neutral-900"
           >
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
               <div className="md:col-span-3">

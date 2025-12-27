@@ -112,7 +112,7 @@ const App: React.FC = () => {
                 <>
                   <Hero siteInfo={content.site_info} />
 
-                  <section id="work" className="px-6 md:px-12 py-32 md:py-64 max-w-7xl mx-auto">
+                  <section id="work" className="px-6 md:px-12 py-20 md:py-64 max-w-7xl mx-auto">
                     <motion.div
                       initial={{ opacity: 0, y: 40 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -142,7 +142,7 @@ const App: React.FC = () => {
                   </section>
 
                   {/* Quick About Section */}
-                  <section id="about" className="px-6 md:px-12 py-32 md:py-64 border-t border-neutral-900 bg-[#0a0a0a] relative overflow-hidden">
+                  <section id="about" className="px-6 md:px-12 py-20 md:py-64 border-t border-neutral-900 bg-[#0a0a0a] relative overflow-hidden">
                     <div className="absolute top-10 left-10 opacity-[0.03] select-none pointer-events-none">
                       <span className="text-[30vw] font-bold leading-none tracking-tighter">02</span>
                     </div>
@@ -227,7 +227,12 @@ const App: React.FC = () => {
                 <AboutView content={content} />
               )}
 
-              <Footer footer={content.footer} siteInfo={content.site_info} navigation={content.navigation} />
+              <Footer
+                footer={content.footer}
+                siteInfo={content.site_info}
+                navigation={content.navigation}
+                onViewChange={navigateToView}
+              />
             </motion.div>
           )}
         </AnimatePresence>

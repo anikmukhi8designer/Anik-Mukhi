@@ -18,7 +18,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, onClick, isLa
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.8, ease: EASING, delay: index * 0.1 }}
-      className="group relative w-full mb-32 md:mb-64"
+      className="group relative w-full mb-16 md:mb-64"
     >
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
         <div

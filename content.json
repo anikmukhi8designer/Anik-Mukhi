@@ -78,7 +78,7 @@
       "overview": "Investa is a modern fintech application designed to help users manage their financial goals with ease. The app simplifies the complex process of tracking multiple savings targets into a single, intuitive dashboard.",
       "challenge": "Many users find traditional banking apps dry and difficult to navigate when it comes to specific goal-setting. The challenge was to create a platform that encourages saving through positive reinforcement and clear visual progress.",
       "solution": "We developed a high-fidelity mobile interface that uses clean typography and a vibrant color palette to make financial management feel less like a chore and more like a rewarding experience.",
-      "externalLink": "",
+      "externalLink": "https://www.figma.com/proto/QBjJrICdG6NqfzASJv94Xa/Investa-Case-Studies?page-id=0%3A1&node-id=9-676&viewport=556%2C117%2C0.06&t=0SRTGYNkYURH59C0-1&scaling=min-zoom&content-scaling=fixed",
       "gallery": [
         "#"
       ],
@@ -112,7 +112,7 @@
         "Interface Design",
         "3D Motion"
       ],
-      "externalLink": "",
+      "externalLink": "https://www.figma.com/proto/6RWtduxiJStaJRmLblXKMl/Real-estate-App?page-id=7%3A702&node-id=8-717&viewport=484%2C45%2C0.07&t=MiE3nnq1pSRnqahH-1&scaling=min-zoom&content-scaling=fixed",
       "performance": {
         "carbon": "0.18g CO2",
         "loadTime": "0.4s"
@@ -142,7 +142,7 @@
         "UI Design",
         "Prototyping"
       ],
-      "externalLink": "",
+      "externalLink": "https://www.figma.com/proto/iKpl6OqVx9B8CskFIyycY7/Netflix-Case-Studies?page-id=0%3A1&node-id=6-6&p=f&viewport=627%2C45%2C0.05&t=C1sf8faMskGblAW4-1&scaling=scale-down-width&content-scaling=fixed",
       "awards": [
         "Awwwards SOTD",
         "FWA of the Month"
@@ -197,6 +197,43 @@
         "role": "Product Director, Netflix"
       },
       "_comment": "Netflix UX case study with detailed content blocks"
+    },
+    {
+      "id": "00",
+      "title": "Toingg",
+      "featured": false,
+      "tagline": "AI Voice Calling Agent Platform",
+      "category": "AI Voice Platform",
+      "image": "/projects/toingg.png",
+      "location": "Remote",
+      "year": "2023",
+      "services": [
+        "UI Design",
+        "Website Design",
+        "Integration Strategy"
+      ],
+      "overview": "Toingg is an AI-powered voice platform that handles customer interactions 24/7. It enables businesses to automate routines like interview scheduling, payment reminders, and feedback collection with human-like efficiency.",
+      "challenge": "Many businesses lose leads due to unavailable customer support outside of standard hours, leading to missed opportunities and slow response times.",
+      "solution": "A scalable AI calling agent system with natural cadence and deep CRM integrations, providing a seamless bridge between automated calls and lead management.",
+      "externalLink": "https://www.figma.com/proto/sxAsgPEVgrtwCPbJ0gVBrY/Toingg?node-id=3-17&p=f&t=ye8YN01QQII4lzNE-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1",
+      "gallery": [
+        "/projects/toingg.png"
+      ],
+      "contentBlocks": [
+        {
+          "type": "text",
+          "title": "THE MISSION",
+          "body": "To revolutionize business communication by making 24/7, human-like voice agents accessible to every developer and business owner through a powerful API and intuitive interface."
+        },
+        {
+          "type": "image",
+          "images": [
+            "/projects/toingg.png"
+          ],
+          "caption": "Landing page design showcasing use cases for AI Voice Champions"
+        }
+      ],
+      "clientQuote": null
     }
   ],
   "experience": [
